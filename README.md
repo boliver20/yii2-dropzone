@@ -12,13 +12,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist perminder-klair/yii2-dropzone "dev-master"
+php composer.phar require --prefer-dist boliver20/yii2-dropzone "*"
 ```
 
 or add
 
 ```
-"perminder-klair/yii2-dropzone": "dev-master"
+"boliver20/yii2-dropzone": "*"
 ```
 
 to the require section of your `composer.json` file.
@@ -30,14 +30,14 @@ Usage
 Once the extension is installed, simply use it in your code by to create Ajax upload area :
 
 ```php
-echo \kato\DropZone::widget();
+echo \boliver\DropZone::widget();
 ```
 
 
 To pass options : (More details at [dropzonejs official docs](http://www.dropzonejs.com/#toc_6) )
 
 ```php
-echo \kato\DropZone::widget([
+echo \boliver\DropZone::widget([
        'options' => [
            'maxFilesize' => '2',
        ],
@@ -56,17 +56,15 @@ public function actionUpload()
     $fileName = 'file';
     $uploadPath = './files';
 
-    if (isset($_FILES[$fileName])) {
-        $file = \yii\web\UploadedFile::getInstanceByName($fileName);
+    $file = \yii\web\UploadedFile::getInstanceByName($fileName);
 
-        //Print file data
-        //print_r($file);
+    //Print file data
+    //print_r($file);
 
-        if ($file->saveAs($uploadPath . '/' . $file->name)) {
-            //Now save file data to database
+    if ($file && $file->saveAs($uploadPath . '/' . $file->name)) {
+        //Now save file data to database
 
-            echo \yii\helpers\Json::encode($file);
-        }
+        echo \yii\helpers\Json::encode($file);
     }
 
     return false;

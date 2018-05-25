@@ -1,16 +1,16 @@
 <?php
 
-namespace kato;
+namespace boliver\dropzone;
 
 use yii\helpers\Html;
 use yii\helpers\Json;
-use kato\assets\DropZoneAsset;
+use boliver\dropzone\assets\DropZoneAsset;
 use yii\web\View;
 
 /**
- * Usage: \kato\dropzonejs\DropZone::widget();
+ * Usage: \boliver\dropzonejs\DropZone::widget();
  * Class DropZone
- * @package kato
+ * @package boliver
  */
 class DropZone extends \yii\base\Widget
 {
@@ -40,12 +40,18 @@ class DropZone extends \yii\base\Widget
         parent::init();
 
         //set defaults
-        if (!isset($this->options['url'])) $this->options['url'] = $this->uploadUrl; // Set the url
-        if (!isset($this->options['previewsContainer'])) $this->options['previewsContainer'] = '#' . $this->previewsContainer; // Define the element that should be used as click trigger to select files.
-        if (!isset($this->options['clickable'])) $this->options['clickable'] = true; // Define the element that should be used as click trigger to select files.
-        $this->autoDiscover = $this->autoDiscover===false?'false':'true';
-        
-        if(\Yii::$app->getRequest()->enableCsrfValidation){
+        if (!isset($this->options['url'])) {
+            $this->options['url'] = $this->uploadUrl;
+        } // Set the url
+        if (!isset($this->options['previewsContainer'])) {
+            $this->options['previewsContainer'] = '#' . $this->previewsContainer;
+        } // Define the element that should be used as click trigger to select files.
+        if (!isset($this->options['clickable'])) {
+            $this->options['clickable'] = true;
+        } // Define the element that should be used as click trigger to select files.
+        $this->autoDiscover = $this->autoDiscover === false ? 'false' : 'true';
+
+        if (\Yii::$app->getRequest()->enableCsrfValidation) {
             $this->options['headers'][\yii\web\Request::CSRF_HEADER] = \Yii::$app->getRequest()->getCsrfToken();
             $this->options['params'][\Yii::$app->getRequest()->csrfParam] = \Yii::$app->getRequest()->getCsrfToken();
         }
@@ -61,7 +67,7 @@ class DropZone extends \yii\base\Widget
 
     private function renderDropzone()
     {
-        $data = Html::tag('div', '', ['id' => $this->previewsContainer,'class' => 'dropzone-previews']);
+        $data = Html::tag('div', '', ['id' => $this->previewsContainer, 'class' => 'dropzone-previews']);
 
         return $data;
     }
